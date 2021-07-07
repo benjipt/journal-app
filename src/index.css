@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500&family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&family=Lobster&display=swap');
 
 body {
   margin: 0;
@@ -22,4 +21,10 @@ code {
 
 h1 {
   font-family: 'Lobster', cursive;
+}
+
+.form-control {
+  font-family: 'IBM Plex Mono', monospace;
+  /* background-color: #FEC85D; */
+  color: #050609;
 }
