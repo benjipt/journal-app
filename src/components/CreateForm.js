@@ -45,7 +45,7 @@ export default class CreateForm extends Component {
             this.setState({
                 title: '',
                 body: '',
-                userID: ''
+                userID: '1234'
             })
             this.props.toggleCreateForm()
             })

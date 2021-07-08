@@ -3,6 +3,15 @@ import React, { Component } from 'react'
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
 
+let baseURL;
+
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3003';
+} else {
+    // UPDATE THIS LATER
+  baseURL = 'https://xxxxxxxxxxx.herokuapp.com';
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -12,8 +21,19 @@ export default class App extends Component {
       journals: []
     }
 
+    this.getJournals = this.getJournals.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
+  }
+
+  componentDidMount() {
+    this.getJournals()
+  }
+
+  getJournals() {
+    fetch(baseURL + '/journals')
+    .then(data => { return data.json()}, err => console.log(err))
+    .then(parsedData => this.setState({journals: parsedData}), err => console.log(err))
   }
 
   toggleCreateForm() {
