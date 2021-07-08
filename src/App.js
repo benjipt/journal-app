@@ -62,7 +62,7 @@ export default class App extends Component {
             toggleCreateForm={ this.toggleCreateForm }
             handleAddJournal={ this.handleAddJournal } /> }
 
-        { this.state.journals &&
+        { !this.state.showCreateForm && this.state.journals &&
           <Journals journals={ this.state.journals } /> }
       </div>
     )
