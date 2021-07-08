@@ -19,11 +19,14 @@ export default class CreateForm extends Component {
     render() {
         return (
             <div className="mt-4">
+                <div className="mb-3 d-grid gap-2">
+                    <button onClick={ this.props.toggleCreateForm } className="btn btn-lg btn-secondary">Back</button>
+                </div>
                 <form>
                     <div className="mb-3">
                         {/* <label htmlFor="title" className="form-label">Title</label> */}
                         <input onChange={ this.handleChange } type="text" className="form-control" id="title" name="title" placeholder="Title goes here..." />
-                        <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="6"/>
+                        <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="10"/>
                         <input type="hidden" id="userID" name="userID" value="1234" />
                     </div>
                     <div className="mb-4 d-grid gap-2">
