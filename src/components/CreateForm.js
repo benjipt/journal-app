@@ -24,6 +24,7 @@ export default class CreateForm extends Component {
                         {/* <label htmlFor="title" className="form-label">Title</label> */}
                         <input onChange={ this.handleChange } type="text" className="form-control" id="title" name="title" placeholder="Title goes here..." />
                         <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="6"/>
+                        <input type="hidden" id="userID" name="userID" value="1234" />
                     </div>
                     <div className="mb-4 d-grid gap-2">
                         <input type="submit" className="btn btn-lg btn-success" />
