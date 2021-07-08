@@ -28,3 +28,7 @@ h1 {
   /* background-color: #FEC85D; */
   color: #050609;
 }
+
+.card-body {
+  color: #050609;
+}

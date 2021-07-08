@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
+import Journals from './components/Journals'
 
 let baseURL;
 
@@ -60,6 +61,9 @@ export default class App extends Component {
           <CreateForm 
             toggleCreateForm={ this.toggleCreateForm }
             handleAddJournal={ this.handleAddJournal } /> }
+
+        { this.state.journals &&
+          <Journals journals={ this.state.journals } /> }
       </div>
     )
   }
