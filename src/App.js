@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import HomeButton from './components/HomeButton'
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
+import EditForm from './components/EditForm'
 import Journals from './components/Journals'
 import JournalPage from './components/JournalPage'
 
@@ -29,6 +30,7 @@ export default class App extends Component {
 
     this.getJournals = this.getJournals.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
+    this.toggleEditForm = this.toggleEditForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
     this.toggleshowJournalPage = this.toggleshowJournalPage.bind(this)
     this.handleClickHome = this.handleClickHome.bind(this)
@@ -47,6 +49,13 @@ export default class App extends Component {
 
   toggleCreateForm() {
     this.setState({ showCreateForm: !this.state.showCreateForm })
+  }
+
+  toggleEditForm() {
+    this.setState({ 
+      showEditForm: !this.state.showEditForm,
+      showJournalPage: false
+    })
   }
 
   handleAddJournal(journal) {
@@ -69,6 +78,7 @@ export default class App extends Component {
     this.setState({
       showCreateForm: false,
       showJournalPage: false,
+      showEditForm: false
     })
   }
 
@@ -103,15 +113,20 @@ export default class App extends Component {
             toggleCreateForm={ this.toggleCreateForm }
             handleAddJournal={ this.handleAddJournal } /> }
 
+        { this.state.showEditForm &&
+          <EditForm 
+            selectedJournal={ this.state.selectedJournal } /> }
+
         { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
           <Journals 
             journals={ this.state.journals }
             toggleshowJournalPage={ this.toggleshowJournalPage } /> }
 
-        { this.state.showJournalPagePage &&
+        { this.state.showJournalPage && 
           <JournalPage 
             selectedJournal={ this.state.selectedJournal }
-            handleDeleteJournal={ this.handleDeleteJournal } /> }
+            handleDeleteJournal={ this.handleDeleteJournal }
+            toggleEditForm={ this.toggleEditForm } /> }
       </div>
     )
   }

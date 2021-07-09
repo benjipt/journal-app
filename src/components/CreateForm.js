@@ -60,7 +60,6 @@ export default class CreateForm extends Component {
                 </div>
                 <form onSubmit={ this.handleSubmit } >
                     <div className="mb-3">
-                        {/* <label htmlFor="title" className="form-label">Title</label> */}
                         <input onChange={ this.handleChange } type="text" className="form-control" id="title" name="title" placeholder="Title goes here..." />
                         <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="10"/>
                     </div>

@@ -10,7 +10,7 @@ export default class Journals extends Component {
                         <JournalCard
                             key={ journal._id }
                             journal={ journal }
-                            toggleShowJournal={ this.props.toggleShowJournal } />
+                            toggleShowJournalPage={ this.props.toggleshowJournalPage } />
                     )
                 }) }
             </div>
