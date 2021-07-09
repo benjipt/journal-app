@@ -54,8 +54,11 @@ export default class App extends Component {
   }
 
   toggleShowJournal(event) {
-    this.setState({ showJournal: !this.state.showJournal })
-    
+    const thisJournal = this.state.journals.find(journal => journal._id === event.currentTarget.id)
+    this.setState({ 
+      showJournal: !this.state.showJournal,
+      selectedJournal: thisJournal
+    })
   }
 
   render() {
@@ -77,7 +80,7 @@ export default class App extends Component {
             toggleShowJournal={ this.toggleShowJournal } /> }
 
         { this.state.showJournal &&
-          <JournalPage /> }
+          <JournalPage selectedJournal={ this.state.selectedJournal } /> }
       </div>
     )
   }
