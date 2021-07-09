@@ -23,6 +23,12 @@ h1 {
   font-family: 'Lobster', cursive;
 }
 
+h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #FEC85D;
+  text-decoration: underline;
+}
+
 .form-control {
   font-family: 'IBM Plex Mono', monospace;
   /* background-color: #FEC85D; */
