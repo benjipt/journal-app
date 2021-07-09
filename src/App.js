@@ -31,6 +31,7 @@ export default class App extends Component {
     this.handleAddJournal = this.handleAddJournal.bind(this)
     this.toggleShowJournal = this.toggleShowJournal.bind(this)
     this.handleClickHome = this.handleClickHome.bind(this)
+    this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
 
   componentDidMount() {
@@ -70,6 +71,23 @@ export default class App extends Component {
     })
   }
 
+  handleDeleteJournal(event) {
+    fetch(`${baseURL}/journals/${event.target.id}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if(res.status === 200) {
+          const findIndex = this.state.journals.findIndex(journal => journal._id === event.target.id)
+          const copyJournals = [...this.state.journals]
+          copyJournals.splice(findIndex, 1)
+          this.setState({
+            showJournal: false,
+            journals: copyJournals
+          })
+        }
+      })
+  }
+
   render() {
     return (
       <div className="container text-center mt-4">
@@ -90,7 +108,9 @@ export default class App extends Component {
             toggleShowJournal={ this.toggleShowJournal } /> }
 
         { this.state.showJournal &&
-          <JournalPage selectedJournal={ this.state.selectedJournal } /> }
+          <JournalPage 
+            selectedJournal={ this.state.selectedJournal }
+            handleDeleteJournal={ this.handleDeleteJournal } /> }
       </div>
     )
   }
