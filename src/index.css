@@ -41,14 +41,15 @@ h1 {
   overflow: hidden;
 }
 
+/* https://stackoverflow.com/questions/21544902/pressed-button-effect-for-bootstrap-3-button */
 .btn-custom {
-  border-bottom: 5px solid #D7D6D6;
+  border-bottom: 2px solid #050609;
   position: relative;
 }
 
 .btn-custom:hover {
   top: 2.5px;
-  border-bottom-width: 2.5px;
+  border-bottom-width: 1px;
 }
 
 .btn-custom:active {

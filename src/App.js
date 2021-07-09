@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
 import Journals from './components/Journals'
+import JournalPage from './components/JournalPage'
 
 let baseURL;
 
@@ -19,12 +20,15 @@ export default class App extends Component {
 
     this.state = {
       showCreateForm: false,
-      journals: []
+      showJournal: false,
+      journals: [],
+      selectedJournal: {}
     }
 
     this.getJournals = this.getJournals.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
+    this.toggleShowJournal = this.toggleShowJournal.bind(this)
   }
 
   componentDidMount() {
@@ -49,12 +53,17 @@ export default class App extends Component {
     })
   }
 
+  toggleShowJournal(event) {
+    this.setState({ showJournal: !this.state.showJournal })
+    
+  }
+
   render() {
     return (
       <div className="container text-center mt-4">
         <h1 className="display-1">Journals</h1>
         
-        { !this.state.showCreateForm && 
+        { !this.state.showCreateForm && !this.state.showJournal &&
           <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
 
         { this.state.showCreateForm && 
@@ -62,8 +71,13 @@ export default class App extends Component {
             toggleCreateForm={ this.toggleCreateForm }
             handleAddJournal={ this.handleAddJournal } /> }
 
-        { !this.state.showCreateForm && this.state.journals &&
-          <Journals journals={ this.state.journals } /> }
+        { !this.state.showJournal && !this.state.showCreateForm && this.state.journals && 
+          <Journals 
+            journals={ this.state.journals }
+            toggleShowJournal={ this.toggleShowJournal } /> }
+
+        { this.state.showJournal &&
+          <JournalPage /> }
       </div>
     )
   }
