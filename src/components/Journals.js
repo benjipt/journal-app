@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import JournalCard from './JournalCard'
 
 export default class Journals extends Component {
+
+    componentDidMount() {
+        this.props.getJournals()
+    }
+
     render() {
         return (
             <div className="container px-4">

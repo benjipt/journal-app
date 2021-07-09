@@ -37,10 +37,6 @@ export default class App extends Component {
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
 
-  componentDidMount() {
-    this.getJournals()
-  }
-
   getJournals() {
     fetch(baseURL + '/journals')
     .then(data => { return data.json()}, err => console.log(err))
@@ -115,10 +111,12 @@ export default class App extends Component {
 
         { this.state.showEditForm &&
           <EditForm 
-            selectedJournal={ this.state.selectedJournal } /> }
+            selectedJournal={ this.state.selectedJournal }
+            handleClickHome={ this.handleClickHome } /> }
 
         { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
           <Journals 
+            getJournals={ this.getJournals }
             journals={ this.state.journals }
             toggleshowJournalPage={ this.toggleshowJournalPage } /> }
 
