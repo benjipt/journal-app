@@ -7,7 +7,7 @@ export default class JournalCard extends Component {
                 <div 
                     className="col-9 card btn btn-custom" 
                     id={ this.props.journal._id }
-                    onClick={ this.props.toggleShowJournal }>
+                    onClick={ this.props.toggleshowJournalPage }>
                     <div className="card-body">
                         <h5 className="card-title mb-2">{ this.props.journal.title }</h5>
                         <p className="card-text">{ this.props.journal.body }</p>

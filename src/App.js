@@ -21,7 +21,8 @@ export default class App extends Component {
 
     this.state = {
       showCreateForm: false,
-      showJournal: false,
+      showEditForm: false,
+      showJournalPage: false,
       journals: [],
       selectedJournal: {}
     }
@@ -29,7 +30,7 @@ export default class App extends Component {
     this.getJournals = this.getJournals.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
-    this.toggleShowJournal = this.toggleShowJournal.bind(this)
+    this.toggleshowJournalPage = this.toggleshowJournalPage.bind(this)
     this.handleClickHome = this.handleClickHome.bind(this)
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
@@ -56,10 +57,10 @@ export default class App extends Component {
     })
   }
 
-  toggleShowJournal(event) {
+  toggleshowJournalPage(event) {
     const thisJournal = this.state.journals.find(journal => journal._id === event.currentTarget.id)
     this.setState({ 
-      showJournal: !this.state.showJournal,
+      showJournalPage: !this.state.showJournalPage,
       selectedJournal: thisJournal
     })
   }
@@ -67,7 +68,7 @@ export default class App extends Component {
   handleClickHome() {
     this.setState({
       showCreateForm: false,
-      showJournal: false,
+      showJournalPage: false,
     })
   }
 
@@ -81,7 +82,7 @@ export default class App extends Component {
           const copyJournals = [...this.state.journals]
           copyJournals.splice(findIndex, 1)
           this.setState({
-            showJournal: false,
+            showJournalPage: false,
             journals: copyJournals
           })
         }
@@ -94,20 +95,20 @@ export default class App extends Component {
 
         <HomeButton handleClickHome={ this.handleClickHome } />
         
-        { !this.state.showCreateForm && !this.state.showJournal &&
+        { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
           <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
 
-        { this.state.showCreateForm && 
+        { this.state.showCreateForm &&
           <CreateForm 
             toggleCreateForm={ this.toggleCreateForm }
             handleAddJournal={ this.handleAddJournal } /> }
 
-        { !this.state.showJournal && !this.state.showCreateForm && this.state.journals && 
+        { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
           <Journals 
             journals={ this.state.journals }
-            toggleShowJournal={ this.toggleShowJournal } /> }
+            toggleshowJournalPage={ this.toggleshowJournalPage } /> }
 
-        { this.state.showJournal &&
+        { this.state.showJournalPagePage &&
           <JournalPage 
             selectedJournal={ this.state.selectedJournal }
             handleDeleteJournal={ this.handleDeleteJournal } /> }
