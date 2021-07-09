@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import HomeButton from './components/HomeButton'
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
 import Journals from './components/Journals'
@@ -29,6 +30,7 @@ export default class App extends Component {
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
     this.toggleShowJournal = this.toggleShowJournal.bind(this)
+    this.handleClickHome = this.handleClickHome.bind(this)
   }
 
   componentDidMount() {
@@ -61,10 +63,18 @@ export default class App extends Component {
     })
   }
 
+  handleClickHome() {
+    this.setState({
+      showCreateForm: false,
+      showJournal: false,
+    })
+  }
+
   render() {
     return (
       <div className="container text-center mt-4">
-        <h1 className="display-1">Journals</h1>
+
+        <HomeButton handleClickHome={ this.handleClickHome } />
         
         { !this.state.showCreateForm && !this.state.showJournal &&
           <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
