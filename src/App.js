@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import HomeButton from './components/HomeButton'
+import SearchBar from './components/SearchBar'
 import CreateButton from './components/CreateButton'
 import CreateForm from './components/CreateForm'
 import EditForm from './components/EditForm'
@@ -103,6 +104,10 @@ export default class App extends Component {
         
         { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
           <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
+
+        { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
+          <SearchBar 
+            items={ this.state.journals } /> }
 
         { this.state.showCreateForm &&
           <CreateForm 
