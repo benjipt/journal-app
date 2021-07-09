@@ -6,6 +6,9 @@ export default class JournalPage extends Component {
         return (
             <div className="mt-5">
                 <h3>{ this.props.selectedJournal.title }</h3>
+                <div className="mt-4 row justify-content-center">
+                    <p className="col-6">{ this.props.selectedJournal.body }</p>
+                </div>
             </div>
         )
     }

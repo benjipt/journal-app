@@ -29,6 +29,10 @@ h3 {
   text-decoration: underline;
 }
 
+p {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
 .form-control {
   font-family: 'IBM Plex Mono', monospace;
   /* background-color: #FEC85D; */
