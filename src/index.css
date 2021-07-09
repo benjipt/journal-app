@@ -33,9 +33,25 @@ h1 {
   color: #050609;
 }
 
+/* https://css-tricks.com/almanac/properties/l/line-clamp/ */
 .card-text {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.btn-custom {
+  border-bottom: 5px solid #D7D6D6;
+  position: relative;
+}
+
+.btn-custom:hover {
+  top: 2.5px;
+  border-bottom-width: 2.5px;
+}
+
+.btn-custom:active {
+  top: 5px;
+  border-bottom: 0;
 }
