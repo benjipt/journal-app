@@ -1,2 +1,2 @@
 # journal-app-frontend
-A journal app, built with React, Python/Flask, and mongoDB
+A journal app, built with React, EspressJS, and MongoDB.
