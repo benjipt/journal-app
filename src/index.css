@@ -57,7 +57,7 @@ p {
 
 /* https://stackoverflow.com/questions/21544902/pressed-button-effect-for-bootstrap-3-button */
 .btn-custom {
-  border-bottom: 2px solid #050609;
+  border-bottom: 2px solid #D7D6D6;
   position: relative;
 }
 
