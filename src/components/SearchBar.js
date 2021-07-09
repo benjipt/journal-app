@@ -13,7 +13,8 @@ export default class SearchBar extends Component {
                         resultStringKeyName='title'
                         styling={{
                             zIndex: 1
-                        }} />
+                        }} 
+                        onSelect={ this.props.onSelect } />
                 </div>
             </div>
         )

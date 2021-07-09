@@ -30,6 +30,7 @@ export default class App extends Component {
     }
 
     this.getJournals = this.getJournals.bind(this)
+    this.handleOnSelect = this.handleOnSelect.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.toggleEditForm = this.toggleEditForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
@@ -42,6 +43,14 @@ export default class App extends Component {
     fetch(baseURL + '/journals')
     .then(data => { return data.json()}, err => console.log(err))
     .then(parsedData => this.setState({journals: parsedData}), err => console.log(err))
+  }
+
+  handleOnSelect(item) {
+    const thisJournal = this.state.journals.find(journal => journal._id === item._id)
+    this.setState({ 
+      showJournalPage: !this.state.showJournalPage,
+      selectedJournal: thisJournal
+    })
   }
 
   toggleCreateForm() {
@@ -107,7 +116,8 @@ export default class App extends Component {
 
         { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
           <SearchBar 
-            items={ this.state.journals } /> }
+            items={ this.state.journals }
+            onSelect={ this.handleOnSelect } /> }
 
         { this.state.showCreateForm &&
           <CreateForm 
