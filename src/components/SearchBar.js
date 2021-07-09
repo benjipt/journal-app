@@ -10,7 +10,10 @@ export default class SearchBar extends Component {
                     <ReactSearchAutocomplete 
                         items={ this.props.items }
                         fuseOptions={{ keys: ['title', 'body'] }}
-                        resultStringKeyName='title' />
+                        resultStringKeyName='title'
+                        styling={{
+                            zIndex: 1
+                        }} />
                 </div>
             </div>
         )

@@ -119,7 +119,7 @@ export default class App extends Component {
             selectedJournal={ this.state.selectedJournal }
             handleClickHome={ this.handleClickHome } /> }
 
-        { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
+        { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && !this.state.searchBarActive && this.state.journals && 
           <Journals 
             getJournals={ this.getJournals }
             journals={ this.state.journals }
