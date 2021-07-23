@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Login from './components/Login'
+import Logout from './components/Logout'
 import HomeButton from './components/HomeButton'
 import SearchBar from './components/SearchBar'
 import CreateButton from './components/CreateButton'
@@ -21,6 +23,7 @@ export default class App extends Component {
     super(props)
 
     this.state = {
+      isLoggedIn: false,
       showCreateForm: false,
       showEditForm: false,
       showJournalPage: false,
@@ -28,6 +31,8 @@ export default class App extends Component {
       selectedJournal: {}
     }
 
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
     this.getJournals = this.getJournals.bind(this)
     this.handleOnSelect = this.handleOnSelect.bind(this)
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
@@ -36,6 +41,14 @@ export default class App extends Component {
     this.toggleshowJournalPage = this.toggleshowJournalPage.bind(this)
     this.handleClickHome = this.handleClickHome.bind(this)
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
+  }
+
+  handleLogin() {
+    this.setState({ isLoggedIn: true })
+  }
+
+  handleLogout() {
+    this.setState({ isLoggedIn: false })
   }
 
   getJournals() {
@@ -109,11 +122,17 @@ export default class App extends Component {
       <div className="container text-center mt-4">
 
         <HomeButton handleClickHome={ this.handleClickHome } />
+
+        { !this.state.isLoggedIn &&
+          <Login handleLogin={ this.handleLogin } /> }
+
+        { this.state.isLoggedIn &&
+          <Logout handleLogout={ this.handleLogout } /> }
         
-        { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
+        { this.state.isLoggedIn && !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
           <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
 
-        { !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
+        { this.state.isLoggedIn && !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
           <SearchBar 
             items={ this.state.journals }
             onSelect={ this.handleOnSelect } /> }
@@ -128,7 +147,7 @@ export default class App extends Component {
             selectedJournal={ this.state.selectedJournal }
             handleClickHome={ this.handleClickHome } /> }
 
-        { !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && !this.state.searchBarActive && this.state.journals && 
+        { this.state.isLoggedIn && !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
           <Journals 
             getJournals={ this.getJournals }
             journals={ this.state.journals }
