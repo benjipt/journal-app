@@ -58,8 +58,8 @@ export default class App extends Component {
     })
   }
 
-  getJournals() {
-    fetch(baseURL + '/journals')
+  getJournals(userID) {
+    fetch(baseURL + '/journals/' + userID)
     .then(data => { return data.json()}, err => console.log(err))
     .then(parsedData => this.setState({journals: parsedData}), err => console.log(err))
   }
@@ -159,7 +159,8 @@ export default class App extends Component {
           <Journals 
             getJournals={ this.getJournals }
             journals={ this.state.journals }
-            toggleshowJournalPage={ this.toggleshowJournalPage } /> }
+            toggleshowJournalPage={ this.toggleshowJournalPage }
+            userID={ this.state.userGoogleId } /> }
 
         { this.state.showJournalPage && 
           <JournalPage 
