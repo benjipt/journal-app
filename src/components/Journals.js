@@ -4,7 +4,7 @@ import JournalCard from './JournalCard'
 export default class Journals extends Component {
 
     componentDidMount() {
-        this.props.getJournals()
+        this.props.getJournals(this.props.userID)
     }
 
     render() {

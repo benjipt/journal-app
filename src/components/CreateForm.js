@@ -15,11 +15,15 @@ export default class CreateForm extends Component {
         this.state = {
             title: '',
             body: '',
-            userID: '1234'
+            userID: ''
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount() {
+        this.setState({ userID: this.props.userID })
     }
 
     handleChange(event) {

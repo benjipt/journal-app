@@ -24,6 +24,7 @@ export default class App extends Component {
 
     this.state = {
       isLoggedIn: false,
+      userGoogleId: '',
       showCreateForm: false,
       showEditForm: false,
       showJournalPage: false,
@@ -43,16 +44,22 @@ export default class App extends Component {
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
 
-  handleLogin() {
-    this.setState({ isLoggedIn: true })
+  handleLogin(profile) {
+    this.setState({
+      isLoggedIn: true,
+      userGoogleId: profile.googleId
+    })
   }
 
   handleLogout() {
-    this.setState({ isLoggedIn: false })
+    this.setState({
+      isLoggedIn: false,
+      userGoogleId: ''
+    })
   }
 
-  getJournals() {
-    fetch(baseURL + '/journals')
+  getJournals(userID) {
+    fetch(baseURL + '/journals/' + userID)
     .then(data => { return data.json()}, err => console.log(err))
     .then(parsedData => this.setState({journals: parsedData}), err => console.log(err))
   }
@@ -140,7 +147,8 @@ export default class App extends Component {
         { this.state.showCreateForm &&
           <CreateForm 
             toggleCreateForm={ this.toggleCreateForm }
-            handleAddJournal={ this.handleAddJournal } /> }
+            handleAddJournal={ this.handleAddJournal }
+            userID={ this.state.userGoogleId } /> }
 
         { this.state.showEditForm &&
           <EditForm 
@@ -151,7 +159,8 @@ export default class App extends Component {
           <Journals 
             getJournals={ this.getJournals }
             journals={ this.state.journals }
-            toggleshowJournalPage={ this.toggleshowJournalPage } /> }
+            toggleshowJournalPage={ this.toggleshowJournalPage }
+            userID={ this.state.userGoogleId } /> }
 
         { this.state.showJournalPage && 
           <JournalPage 

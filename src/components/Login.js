@@ -12,8 +12,8 @@ export default class Login extends Component {
     }
 
     onSuccess(res) {
-        console.log('[Login Success] currentUser:', res.profileObj)
-        this.props.handleLogin()
+        // console.log('[Login Success] currentUser:', res.profileObj)
+        this.props.handleLogin(res.profileObj)
     }
 
     onFailure(res) {
