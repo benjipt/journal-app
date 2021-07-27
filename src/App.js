@@ -147,7 +147,8 @@ export default class App extends Component {
         { this.state.showCreateForm &&
           <CreateForm 
             toggleCreateForm={ this.toggleCreateForm }
-            handleAddJournal={ this.handleAddJournal } /> }
+            handleAddJournal={ this.handleAddJournal }
+            userID={ this.state.userGoogleId } /> }
 
         { this.state.showEditForm &&
           <EditForm 
