@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { GoogleLogin } from 'react-google-login'
 
-const clientId = process.env.CLIENTID
+const clientId = process.env.CLIENTID || '890910246306-5u2nbfcpob0o0jk6j5tr53aanpro9pau.apps.googleusercontent.com'
 
 export default class Login extends Component {
     constructor(props) {
@@ -12,8 +12,8 @@ export default class Login extends Component {
     }
 
     onSuccess(res) {
-        console.log('[Login Success] currentUser:', res.profileObj)
-        this.props.handleLogin()
+        // console.log('[Login Success] currentUser:', res.profileObj)
+        this.props.handleLogin(res.profileObj)
     }
 
     onFailure(res) {

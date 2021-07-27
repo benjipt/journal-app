@@ -24,6 +24,7 @@ export default class App extends Component {
 
     this.state = {
       isLoggedIn: false,
+      userGoogleId: '',
       showCreateForm: false,
       showEditForm: false,
       showJournalPage: false,
@@ -43,12 +44,18 @@ export default class App extends Component {
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
 
-  handleLogin() {
-    this.setState({ isLoggedIn: true })
+  handleLogin(profile) {
+    this.setState({
+      isLoggedIn: true,
+      userGoogleId: profile.googleId
+    })
   }
 
   handleLogout() {
-    this.setState({ isLoggedIn: false })
+    this.setState({
+      isLoggedIn: false,
+      userGoogleId: ''
+    })
   }
 
   getJournals() {
