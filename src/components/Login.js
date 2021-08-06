@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { GoogleLogin } from 'react-google-login'
 
-const clientId = process.env.CLIENTID
-
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -24,7 +22,7 @@ export default class Login extends Component {
         return (
             <div className="mt-4 mb-2">
                 <GoogleLogin 
-                    clientId={clientId}
+                    clientId={process.env.CLIENT_ID}
                     buttonText="Login with Google"
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}
