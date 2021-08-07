@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { GoogleLogout } from 'react-google-login'
 
 require('dotenv').config()
-const clientId = process.env.CLIENT_ID
+const clientId = process.env.REACT_APP_CLIENTID
 
 export default class Logout extends Component {
     constructor(props) {
