@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { GoogleLogout } from 'react-google-login'
 
+require('dotenv').config()
+const clientId = process.env.CLIENT_ID
+
 export default class Logout extends Component {
     constructor(props) {
         super(props)
@@ -16,7 +19,7 @@ export default class Logout extends Component {
         return (
             <div className="mt-4 mb-2">
                 <GoogleLogout 
-                    clientId={process.env.CLIENT_ID}
+                    clientId={clientId}
                     buttonText="Logout"
                     onLogoutSuccess={this.onSuccess}
                 />

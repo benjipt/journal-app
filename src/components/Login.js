@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { GoogleLogin } from 'react-google-login'
 
+require('dotenv').config()
+const clientId = process.env.CLIENT_ID
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -22,7 +25,7 @@ export default class Login extends Component {
         return (
             <div className="mt-4 mb-2">
                 <GoogleLogin 
-                    clientId={process.env.CLIENT_ID}
+                    clientId={clientId}
                     buttonText="Login with Google"
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}
