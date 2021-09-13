@@ -1,39 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 
 require('dotenv').config()
 // Need to troubleshoot why process.env.REACT_APP_CLIENTID is undefined
 const clientId = process.env.REACT_APP_CLIENTID || '890910246306-5u2nbfcpob0o0jk6j5tr53aanpro9pau.apps.googleusercontent.com'
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props)
+export default function Login(props) {
 
-        this.onSuccess = this.onSuccess.bind(this)
-        this.onFailure = this.onFailure.bind(this)
+    const { handleLogin } = props
+
+    const onSuccess = res => {
+        handleLogin(res.profileObj)
     }
 
-    onSuccess(res) {
-        // console.log('[Login Success] currentUser:', res.profileObj)
-        this.props.handleLogin(res.profileObj)
-    }
-
-    onFailure(res) {
+    const onFailure = res => {
         console.log('[Login failed] res:', res)
     }
 
-    render() {
-        return (
-            <div className="mt-4 mb-2">
-                <GoogleLogin 
-                    clientId={clientId}
-                    buttonText="Login with Google"
-                    onSuccess={this.onSuccess}
-                    onFailure={this.onFailure}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={true}
-                />
-            </div>
-        )
-    }
+    return (
+        <div className="mt-4 mb-2">
+            <GoogleLogin 
+                clientId={ clientId }
+                buttonText="Login with Google"
+                onSuccess={ onSuccess }
+                onFailure={ onFailure }
+                cookiePolicy={'single_host_origin'}
+                isSignedIn={true}
+            />
+        </div>
+    )
 }
