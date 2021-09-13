@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { GoogleLogin } from 'react-google-login'
 
 require('dotenv').config()
-const clientId = process.env.REACT_APP_CLIENTID
+// Need to troubleshoot why process.env.REACT_APP_CLIENTID is undefined
+const clientId = process.env.REACT_APP_CLIENTID || '890910246306-5u2nbfcpob0o0jk6j5tr53aanpro9pau.apps.googleusercontent.com'
 
 export default class Login extends Component {
     constructor(props) {
