@@ -18,10 +18,11 @@ A full-stack CRUD React app that allows users to write and store journal entries
 
 ## Project status
 Complete w/ plans to add future updates/features:
-- User can sign up and log in.
-- Journals are mapped to specific users.
-- User can reset password.
-- User can validate email.
+- Confirmation dialog on delete.
+- (COMPLETED) User can sign up and log in.
+- (COMPLETED) Journals are mapped to specific users.
+- (COMPLETED) User can reset password.
+- (COMPLETED) User can validate email.
 
 ## User Stories
 - Users can add journal entries.
