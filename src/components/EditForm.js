@@ -1,66 +1,50 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-let baseURL;
+let baseURL = 'https://journals-app-api.herokuapp.com'
 
-if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://localhost:3003';
-} else {
-    baseURL = 'https://journals-app-api.herokuapp.com';
-}
+export default function EditForm(props) {
 
-export default class EditForm extends Component {
-    constructor(props) {
-        super(props)
+    const { selectedJournal, handleClickHome, userID } = props
 
-        this.state = {
-            title: this.props.selectedJournal.title,
-            body: this.props.selectedJournal.body,
-            userID: '1234'
-        }
+    const [ state, setState ] = useState({
+        title: selectedJournal.title,
+        body: selectedJournal.body,
+        userID
+    })
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleUpdateJournal = this.handleUpdateJournal.bind(this)
-    }
-
-    handleChange(event) {
-        this.setState({ [event.currentTarget.id]: event.currentTarget.value })
+    const handleChange = e => {
+        setState({ 
+            ...state,
+            [e.currentTarget.id]: e.currentTarget.value
+        })
       }
 
-    handleUpdateJournal(event) {
-        event.preventDefault()
-        fetch(`${baseURL}/journals/${event.currentTarget.id}`, {
+    const handleUpdateJournal = e => {
+        e.preventDefault()
+        fetch(`${baseURL}/journals/${e.currentTarget.id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                title: this.state.title,
-                body: this.state.body,
-                userID: this.state.userID
-            })
+            body: JSON.stringify({ ...state })
         })
-        .then(res => res.json())
-        .then(resJson => {
-            console.log(resJson)
-            this.props.handleClickHome()
-        })
+        .then(res => handleClickHome())
+        .catch(error => console.log({ 'Error updating journal': error }))
     }
 
-    render() {
-        return (
-            <div className="mt-4">
-                <form 
-                    onSubmit={ this.handleUpdateJournal }
-                    id={ this.props.selectedJournal._id }>
-                    <div className="mb-3">
-                        <input onChange={ this.handleChange } type="text" className="form-control" id="title" name="title" value={ this.state.title } />
-                        <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" value={ this.state.body } rows="10"/>
-                    </div>
-                    <div className="mb-4 d-grid gap-2">
-                        <input type="submit" className="btn btn-lg btn-success" value="Update Journal" />
-                    </div>
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className="mt-4">
+            <form 
+                onSubmit={ handleUpdateJournal }
+                id={ selectedJournal._id }>
+                <div className="mb-3">
+                    <input onChange={ handleChange } type="text" className="form-control" id="title" name="title" value={ state.title } />
+                    <textarea onChange={ handleChange } type="text" className="form-control" id="body" name="body" value={ state.body } rows="10"/>
+                </div>
+                <div className="mb-4 d-grid gap-2">
+                    <input type="submit" className="btn btn-lg btn-success" value="Update Journal" />
+                </div>
+            </form>
+        </div>
+    )
 }

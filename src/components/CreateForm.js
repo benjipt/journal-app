@@ -2,12 +2,6 @@ import React, { useState } from 'react'
 
 let baseURL = 'https://journals-app-api.herokuapp.com';
 
-// if (process.env.NODE_ENV === 'development') {
-//   baseURL = 'http://localhost:3003';
-// } else {
-//   baseURL = 'https://journals-app-api.herokuapp.com';
-// }
-
 export default function CreateForm(props) {
 
     const { userID, handleAddJournal, toggleCreateForm } = props
@@ -47,7 +41,7 @@ export default function CreateForm(props) {
             })
             toggleCreateForm()
             })
-            .catch(error => console.log({ 'Error': error }))
+            .catch(error => console.log({ 'Error creating journal': error }))
     }
 
     return (

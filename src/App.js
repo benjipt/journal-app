@@ -153,7 +153,8 @@ export default class App extends Component {
         { this.state.showEditForm &&
           <EditForm 
             selectedJournal={ this.state.selectedJournal }
-            handleClickHome={ this.handleClickHome } /> }
+            handleClickHome={ this.handleClickHome }
+            userID={ this.state.userGoogleId } /> }
 
         { this.state.isLoggedIn && !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
           <Journals 
