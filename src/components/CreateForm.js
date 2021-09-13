@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 let baseURL = 'https://journals-app-api.herokuapp.com';
 
@@ -8,69 +8,62 @@ let baseURL = 'https://journals-app-api.herokuapp.com';
 //   baseURL = 'https://journals-app-api.herokuapp.com';
 // }
 
-export default class CreateForm extends Component {
-    constructor(props) {
-        super(props)
+export default function CreateForm(props) {
 
-        this.state = {
-            title: '',
-            body: '',
-            userID: ''
-        }
+    const { userID, handleAddJournal, toggleCreateForm } = props
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
+    const [ state, setState ] = useState({
+        title: '',
+        body: '',
+        userID
+    })
 
-    componentDidMount() {
-        this.setState({ userID: this.props.userID })
-    }
-
-    handleChange(event) {
-        this.setState({ [event.currentTarget.id]: event.currentTarget.value })
+    const handleChange = e => {
+        setState({
+            ...state,
+            [e.currentTarget.id]: e.currentTarget.value
+        })
       }
 
-    handleSubmit(event) {
-        event.preventDefault()
+    const handleSubmit = e => {
+        e.preventDefault()
         fetch(baseURL + '/journals', {
             method: 'POST',
             body: JSON.stringify({
-                title: this.state.title,
-                body: this.state.body,
-                userID: this.state.userID
+                title: state.title,
+                body: state.body,
+                userID: state.userID
             }),
             headers: {
             'Content-Type': 'application/json'
             }
         }).then(res => res.json())
             .then(resJson => {
-            this.props.handleAddJournal(resJson)
-            this.setState({
+            handleAddJournal(resJson)
+            setState({
+                ...state,
                 title: '',
                 body: '',
-                userID: '1234'
             })
-            this.props.toggleCreateForm()
+            toggleCreateForm()
             })
             .catch(error => console.log({ 'Error': error }))
     }
 
-    render() {
-        return (
-            <div className="mt-4">
-                <div className="mb-3 d-grid gap-2">
-                    <button onClick={ this.props.toggleCreateForm } className="btn btn-lg btn-secondary">Back</button>
-                </div>
-                <form onSubmit={ this.handleSubmit } >
-                    <div className="mb-3">
-                        <input onChange={ this.handleChange } type="text" className="form-control" id="title" name="title" placeholder="Title goes here..." />
-                        <textarea onChange={ this.handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="10"/>
-                    </div>
-                    <div className="mb-4 d-grid gap-2">
-                        <input type="submit" className="btn btn-lg btn-success" />
-                    </div>
-                </form>
+    return (
+        <div className="mt-4">
+            <div className="mb-3 d-grid gap-2">
+                <button onClick={ toggleCreateForm } className="btn btn-lg btn-secondary">Back</button>
             </div>
-        )
-    }
+            <form onSubmit={ handleSubmit } >
+                <div className="mb-3">
+                    <input onChange={ handleChange } type="text" className="form-control" id="title" name="title" placeholder="Title goes here..." />
+                    <textarea onChange={ handleChange } type="text" className="form-control" id="body" name="body" placeholder="Body text goes here..." rows="10"/>
+                </div>
+                <div className="mb-4 d-grid gap-2">
+                    <input type="submit" className="btn btn-lg btn-success" />
+                </div>
+            </form>
+        </div>
+    )
 }
