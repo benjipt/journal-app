@@ -39,7 +39,7 @@ export default class App extends Component {
     this.toggleCreateForm = this.toggleCreateForm.bind(this)
     this.toggleEditForm = this.toggleEditForm.bind(this)
     this.handleAddJournal = this.handleAddJournal.bind(this)
-    this.toggleshowJournalPage = this.toggleshowJournalPage.bind(this)
+    this.toggleShowJournalPage = this.toggleShowJournalPage.bind(this)
     this.handleClickHome = this.handleClickHome.bind(this)
     this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
   }
@@ -91,7 +91,7 @@ export default class App extends Component {
     })
   }
 
-  toggleshowJournalPage(event) {
+  toggleShowJournalPage(event) {
     const thisJournal = this.state.journals.find(journal => journal._id === event.currentTarget.id)
     this.setState({ 
       showJournalPage: !this.state.showJournalPage,
@@ -160,7 +160,7 @@ export default class App extends Component {
           <Journals 
             getJournals={ this.getJournals }
             journals={ this.state.journals }
-            toggleshowJournalPage={ this.toggleshowJournalPage }
+            toggleShowJournalPage={ this.toggleShowJournalPage }
             userID={ this.state.userGoogleId } /> }
 
         { this.state.showJournalPage && 
