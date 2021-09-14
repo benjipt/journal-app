@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import Login from './components/Login'
 import Logout from './components/Logout'
@@ -12,111 +12,99 @@ import JournalPage from './components/JournalPage'
 
 let baseURL = 'https://journals-app-api.herokuapp.com'
 
-// if (process.env.NODE_ENV === 'development') {
-//   baseURL = 'http://localhost:3003';
-// } else {
-//   baseURL = 'https://journals-app-api.herokuapp.com';
-// }
+export default function App() {
 
-export default class App extends Component {
-  constructor(props) {
-    super(props)
+  const [ state, setState ] = useState({
+    isLoggedIn: false,
+    userGoogleId: '',
+    showCreateForm: false,
+    showEditForm: false,
+    showJournalPage: false,
+    journals: [],
+    selectedJournal: {}
+  })
 
-    this.state = {
-      isLoggedIn: false,
-      userGoogleId: '',
-      showCreateForm: false,
-      showEditForm: false,
-      showJournalPage: false,
-      journals: [],
-      selectedJournal: {}
-    }
-
-    this.handleLogin = this.handleLogin.bind(this)
-    this.handleLogout = this.handleLogout.bind(this)
-    this.getJournals = this.getJournals.bind(this)
-    this.handleOnSelect = this.handleOnSelect.bind(this)
-    this.toggleCreateForm = this.toggleCreateForm.bind(this)
-    this.toggleEditForm = this.toggleEditForm.bind(this)
-    this.handleAddJournal = this.handleAddJournal.bind(this)
-    this.toggleShowJournalPage = this.toggleShowJournalPage.bind(this)
-    this.handleClickHome = this.handleClickHome.bind(this)
-    this.handleDeleteJournal = this.handleDeleteJournal.bind(this)
-  }
-
-  handleLogin(profile) {
-    this.setState({
+  const handleLogin = (profile) => {
+    setState({
+      ...state,
       isLoggedIn: true,
       userGoogleId: profile.googleId
     })
   }
 
-  handleLogout() {
-    this.setState({
+  const handleLogout = () => {
+    setState({
+      ...state,
       isLoggedIn: false,
       userGoogleId: ''
     })
   }
 
-  getJournals(userID) {
+  const getJournals = userID => {
     fetch(baseURL + '/journals/' + userID)
     .then(data => { return data.json()}, err => console.log(err))
-    .then(parsedData => this.setState({journals: parsedData}), err => console.log(err))
+    .then(parsedData => setState({...state, journals: parsedData}), err => console.log(err))
   }
 
-  handleOnSelect(item) {
-    const thisJournal = this.state.journals.find(journal => journal._id === item._id)
-    this.setState({ 
-      showJournalPage: !this.state.showJournalPage,
+  const handleOnSelect = item => {
+    const thisJournal = state.journals.find(journal => journal._id === item._id)
+    setState({ 
+      ...state,
+      showJournalPage: !state.showJournalPage,
       selectedJournal: thisJournal
     })
   }
 
-  toggleCreateForm() {
-    this.setState({ showCreateForm: !this.state.showCreateForm })
+  const toggleCreateForm = () => {
+    setState({ showCreateForm: !state.showCreateForm })
   }
 
-  toggleEditForm() {
-    this.setState({ 
-      showEditForm: !this.state.showEditForm,
+  const toggleEditForm = () => {
+    setState({ 
+      ...state,
+      showEditForm: !state.showEditForm,
       showJournalPage: false
     })
   }
 
-  handleAddJournal(journal) {
-    const copyJournals = [...this.state.journals]
+  const handleAddJournal = journal => {
+    const copyJournals = [...state.journals]
     copyJournals.unshift(journal)
-    this.setState({
+    setState({
+      ...state,
       journals: copyJournals
     })
   }
 
-  toggleShowJournalPage(event) {
-    const thisJournal = this.state.journals.find(journal => journal._id === event.currentTarget.id)
-    this.setState({ 
-      showJournalPage: !this.state.showJournalPage,
+  const toggleShowJournalPage = e => {
+    const thisJournal = state.journals.find(journal => journal._id === e.currentTarget.id)
+    setState({ 
+      ...state,
+      showJournalPage: !state.showJournalPage,
       selectedJournal: thisJournal
     })
   }
 
-  handleClickHome() {
-    this.setState({
+  const handleClickHome = () => {
+    setState({
+      ...state,
       showCreateForm: false,
       showJournalPage: false,
       showEditForm: false
     })
   }
 
-  handleDeleteJournal(event) {
-    fetch(`${baseURL}/journals/${event.target.id}`, {
+  const handleDeleteJournal = e => {
+    fetch(`${baseURL}/journals/${e.target.id}`, {
       method: 'DELETE'
     })
       .then(res => {
         if(res.status === 200) {
-          const findIndex = this.state.journals.findIndex(journal => journal._id === event.target.id)
-          const copyJournals = [...this.state.journals]
+          const findIndex = state.journals.findIndex(journal => journal._id === e.target.id)
+          const copyJournals = [...state.journals]
           copyJournals.splice(findIndex, 1)
-          this.setState({
+          setState({
+            ...state,
             showJournalPage: false,
             journals: copyJournals
           })
@@ -124,52 +112,50 @@ export default class App extends Component {
       })
   }
 
-  render() {
-    return (
-      <div className="container text-center mt-4">
+  return (
+    <div className="container text-center mt-4">
 
-        <HomeButton handleClickHome={ this.handleClickHome } />
+      <HomeButton handleClickHome={ handleClickHome } />
 
-        { !this.state.isLoggedIn &&
-          <Login handleLogin={ this.handleLogin } /> }
+      { !state.isLoggedIn &&
+        <Login handleLogin={ handleLogin } /> }
 
-        { this.state.isLoggedIn &&
-          <Logout handleLogout={ this.handleLogout } /> }
-        
-        { this.state.isLoggedIn && !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
-          <CreateButton toggleCreateForm={ this.toggleCreateForm } /> }
+      { state.isLoggedIn &&
+        <Logout handleLogout={ handleLogout } /> }
+      
+      { state.isLoggedIn && !state.showCreateForm && !state.showJournalPage && !state.showEditForm && 
+        <CreateButton toggleCreateForm={ toggleCreateForm } /> }
 
-        { this.state.isLoggedIn && !this.state.showCreateForm && !this.state.showJournalPage && !this.state.showEditForm && 
-          <SearchBar 
-            items={ this.state.journals }
-            onSelect={ this.handleOnSelect } /> }
+      { state.isLoggedIn && !state.showCreateForm && !state.showJournalPage && !state.showEditForm && 
+        <SearchBar 
+          items={ state.journals }
+          onSelect={ handleOnSelect } /> }
 
-        { this.state.showCreateForm &&
-          <CreateForm 
-            toggleCreateForm={ this.toggleCreateForm }
-            handleAddJournal={ this.handleAddJournal }
-            userID={ this.state.userGoogleId } /> }
+      { state.showCreateForm &&
+        <CreateForm 
+          toggleCreateForm={ toggleCreateForm }
+          handleAddJournal={ handleAddJournal }
+          userID={ state.userGoogleId } /> }
 
-        { this.state.showEditForm &&
-          <EditForm 
-            selectedJournal={ this.state.selectedJournal }
-            handleClickHome={ this.handleClickHome }
-            userID={ this.state.userGoogleId } /> }
+      { state.showEditForm &&
+        <EditForm 
+          selectedJournal={ state.selectedJournal }
+          handleClickHome={ handleClickHome }
+          userID={ state.userGoogleId } /> }
 
-        { this.state.isLoggedIn && !this.state.showJournalPage && !this.state.showCreateForm && !this.state.showEditForm && this.state.journals && 
-          <Journals 
-            getJournals={ this.getJournals }
-            journals={ this.state.journals }
-            toggleShowJournalPage={ this.toggleShowJournalPage }
-            userID={ this.state.userGoogleId } /> }
+      { state.isLoggedIn && !state.showJournalPage && !state.showCreateForm && !state.showEditForm && state.journals && 
+        <Journals 
+          getJournals={ getJournals }
+          journals={ state.journals }
+          toggleShowJournalPage={ toggleShowJournalPage }
+          userID={ state.userGoogleId } /> }
 
-        { this.state.showJournalPage && 
-          <JournalPage 
-            selectedJournal={ this.state.selectedJournal }
-            handleDeleteJournal={ this.handleDeleteJournal }
-            toggleEditForm={ this.toggleEditForm } /> }
-      </div>
-    )
-  }
+      { state.showJournalPage && 
+        <JournalPage 
+          selectedJournal={ state.selectedJournal }
+          handleDeleteJournal={ handleDeleteJournal }
+          toggleEditForm={ toggleEditForm } /> }
+    </div>
+  )
 }
 
