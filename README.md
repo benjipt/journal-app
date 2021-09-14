@@ -8,13 +8,14 @@
 * [Launch](#launch)
 
 ## General info
-A full-stack CRUD React app that allows users to write and store journal entries. An autocomplete search input is provided to help users search and select for specific journal entries based on keywords. Back end of project can be accessed [here](https://github.com/benjipt/journal-app-api).
+A full-stack CRUD React app that allows users to write and store journal entries. An autocomplete search input is provided to help users search and select for specific journal entries based on keywords. Google Cloud is used for simple sign-in flow and for compartmentalizing user data on backend. Back end of project can be accessed [here](https://github.com/benjipt/journal-app-api).
 
 ## Technologies
 (Front End)
 - React
 - CSS / Bootstrap
 - Javascript / JSX
+- Google Cloud
 
 ## Project status
 Complete w/ plans to add future updates/features:
